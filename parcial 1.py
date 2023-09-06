@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-x0 = np.array([0.25,0.625,1])
+x0 = np.array([0.25,0.625,1.])
 
 def Function(x):
     return (np.exp(-x))-x
@@ -23,11 +23,11 @@ def algoritmo (f,x0):
     x_3f=x_3(f,x0)
     
     while i!=100 and abs(f(x_3f))>=(1*10**(-10)):
-        np.delete(x0,x0[2])
-        x0=np.insert(x0,1,x_3f)
+        np.delete(x0,2)
+        x0=np.insert(x0,0,x_3f)
+        x0.sort()
         x_3f=x_3(f,x0)
         i+=1
-        print(i)
     return x_3f
 print(algoritmo(Function,x0))
         
