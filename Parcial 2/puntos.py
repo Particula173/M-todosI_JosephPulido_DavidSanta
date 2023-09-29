@@ -3,16 +3,16 @@ import sympy as sp
 
 x=sp.Symbol("x")
 
-def GetLegendreRecursive(n,x):
+def GetLaguerreRecursive(n,x):
 
     if n==0:
         poly = sp.Number(1)
     elif n==1:
         poly = 1-x
     else:
-        poly =((((2*(n-1))+1-x)*GetLegendreRecursive(n-1,x))-((n-1)*GetLegendreRecursive(n-2,x)))/n
+        poly =((((2*(n-1))+1-x)*GetLaguerreRecursive(n-1,x))-((n-1)*GetLaguerreRecursive(n-2,x)))/n
     return sp.expand(poly,x)
-print(GetLegendreRecursive(20,x))
+print(GetLaguerreRecursive(20,x))
 def GetNewton(f,df,xn,itmax=10000,precision=1e-9):
     
     error = 1.
@@ -37,8 +37,8 @@ def GetNewton(f,df,xn,itmax=10000,precision=1e-9):
     else:
         return xn
     
-def GetDLegendre(n,x):
-    Pn = GetLegendreRecursive(n,x)
+def GetDLaguerre(n,x):
+    Pn = GetLaguerreRecursive(n,x)
     return sp.diff(Pn,x,1)
     
 def GetRoots(f,df,x,tolerancia = 5):
@@ -66,8 +66,8 @@ def GetAllRootsGLeg(n):
     DLegendre = np.array([])
     
     for i in range(n+1):
-        Legendre =np.append(Legendre,GetLegendreRecursive(i,x))
-        DLegendre =np.append(DLegendre,GetDLegendre(i,x))
+        Legendre =np.append(Legendre,GetLaguerreRecursive(i,x))
+        DLegendre =np.append(DLegendre,GetDLaguerre(i,x))
     
     poly = sp.lambdify([x],Legendre[n],'numpy')
     Dpoly = sp.lambdify([x],DLegendre[n],'numpy')
@@ -81,7 +81,7 @@ def GetAllRootsGLeg(n):
 print(GetAllRootsGLeg(20))
 
 def GetWeightsGLag(n):
-    l_n_1 = sp.lambdify(x,GetLegendreRecursive(n+1,x),"numpy")
+    l_n_1 = sp.lambdify(x,GetLaguerreRecursive(n+1,x),"numpy")
     x_k = GetAllRootsGLeg(n)
     c_k = np.array([])
     for i in x_k:
