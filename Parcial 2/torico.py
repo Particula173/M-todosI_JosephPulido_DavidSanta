@@ -90,5 +90,5 @@ f2=sp.exp(-x)*(x-r[0])/(r[1]-r[0])
 w1=sp.integrate(f1,(x,0,sp.oo))
 w2=sp.integrate(f2,(x,0,sp.oo))
 
-print(w1)
-print(w2)
+print("w1 es igual a ",w1)
+print("w2 es igual a ",w2)
