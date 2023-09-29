@@ -77,4 +77,18 @@ def GetAllRootsGLeg(n):
         ValueError('El número de raíces debe ser igual al n del polinomio.')
     
     return Roots
-print(GetAllRootsGLeg(2))
+
+
+
+r=GetAllRootsGLeg(2)
+print(r)
+
+x_=sp.Symbol("x")
+f1=sp.exp(-x)*(x-r[1])/(r[0]-r[1])
+f2=sp.exp(-x)*(x-r[0])/(r[1]-r[0])
+
+w1=sp.integrate(f1,(x,0,sp.oo))
+w2=sp.integrate(f2,(x,0,sp.oo))
+
+print(w1)
+print(w2)
