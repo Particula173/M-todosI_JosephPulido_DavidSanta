@@ -93,4 +93,4 @@ w2=sp.integrate(f2,(x,0,sp.oo))
 print("w1 es igual a ",w1)
 print("w2 es igual a ",w2)
 
-r , w = GetAllRootsGLeg(3), 
+r = GetAllRootsGLeg(3)
