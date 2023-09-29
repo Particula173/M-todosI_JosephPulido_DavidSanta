@@ -13,7 +13,7 @@ def GetLaguerreRecursive(n,x):
         poly =((((2*(n-1))+1-x)*GetLaguerreRecursive(n-1,x))-((n-1)*GetLaguerreRecursive(n-2,x)))/n
     return sp.expand(poly,x)
 print(GetLaguerreRecursive(2,x))
-def GetNewton(f,df,xn,itmax=10000,precision=1e-9):
+def GetNewton(f,df,xn,itmax=10000,precision=1e-15):
     
     error = 1.
     it = 0
@@ -41,7 +41,7 @@ def GetDLaguerre(n,x):
     Pn = GetLaguerreRecursive(n,x)
     return sp.diff(Pn,x,1)
     
-def GetRoots(f,df,x,tolerancia = 5):
+def GetRoots(f,df,x,tolerancia = 15):
     
     Roots = np.array([])
     
@@ -78,7 +78,15 @@ def GetAllRootsGLeg(n):
     
     return Roots
 
-
+def GetWeightsGLag(n):
+    l_n_1 = sp.lambdify(x,GetLaguerreRecursive(n+1,x),"numpy")
+    x_k = GetAllRootsGLeg(n)
+    c_k = np.array([])
+    for i in x_k:
+        W = (i)/(((n+1)**2)*((l_n_1(i))**2))
+        if W not in c_k:  
+            c_k = np.append(c_k,W)
+    return c_k
 
 r=GetAllRootsGLeg(2)
 print(r)
@@ -92,5 +100,8 @@ w2=sp.integrate(f2,(x,0,sp.oo))
 
 print("w1 es igual a ",w1)
 print("w2 es igual a ",w2)
+func = lambda x : (x**3)
 
-r = GetAllRootsGLeg(3)
+I=0
+I= w1*func(r[0])+w2*func(r[1])
+print (I)
